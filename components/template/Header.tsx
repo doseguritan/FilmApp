@@ -35,29 +35,27 @@ export function HeaderSearch() {
     }
   }
 
-  return (
-    <header style={{ backgroundColor: 'var(--mantine-primary-color-filled)' }}>
-      <Container size={"md"}>
-      <Group justify="space-between" px="md" py="sm">
-        <Group>
-          <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" color='white' />
-          <Image src={Logo} alt="Logo" width={28} height={28} />
-        </Group>
-
-        <Group>
-          <Group ml={50} gap={5} visibleFrom="sm">
-            {items}
-          </Group>
-          <SearchField handleSearch={handleSearchFilm} />
-        </Group>
+  return (<>
+    <Container size={"md"}>
+    <Group justify="space-between" px="md" py="sm">
+      <Group>
+        <Burger opened={opened} onClick={toggle} size="sm" hiddenFrom="sm" color='white' />
+        <Image src={Logo} alt="Logo" width={28} height={28} />
       </Group>
-      </Container>
-      <Drawer opened={opened} onClose={toggle} size="100%" padding="md" hiddenFrom="sm">
-        <Stack dir='column'>
-          <SearchField handleSearch={handleSearchFilm} visibleFrom={undefined} />
+
+      <Group>
+        <Group ml={50} gap={5} visibleFrom="sm">
           {items}
-        </Stack>
-      </Drawer>
-    </header>
-  );
+        </Group>
+        <SearchField handleSearch={handleSearchFilm} />
+      </Group>
+    </Group>
+    </Container>
+    <Drawer opened={opened} onClose={toggle} size="100%" padding="md" hiddenFrom="sm">
+      <Stack dir='column'>
+        <SearchField handleSearch={handleSearchFilm} visibleFrom={undefined} />
+        {items}
+      </Stack>
+    </Drawer>
+  </>);
 }

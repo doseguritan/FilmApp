@@ -2,8 +2,8 @@
 // All packages except `@mantine/hooks` require styles imports
 import '@mantine/core/styles.css';
 
-import { ColorSchemeScript, Container, MantineProvider, mantineHtmlProps } from '@mantine/core';
-import { HeaderSearch } from '@/components/template/Header';
+import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/core';
+import AppLayout from '@/components/template/AppLayout';
 
 export const metadata = {
   title: 'Films App',
@@ -22,10 +22,7 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider>
-          <HeaderSearch />
-          <Container size={"md"}>
-            {children}
-          </Container>
+          <AppLayout>{children}</AppLayout>
         </MantineProvider>
       </body>
     </html>
