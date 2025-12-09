@@ -12,8 +12,7 @@ const nextConfig: NextConfig = {
         port: '',
         search: ''
       }
-    ],
-    domains: ['image.tmdb.org'],
+    ]
   },
 };
 

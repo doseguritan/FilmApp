@@ -6,8 +6,8 @@ import { ColorSchemeScript, MantineProvider, mantineHtmlProps } from '@mantine/c
 import AppLayout from '@/components/template/AppLayout';
 
 export const metadata = {
-  title: 'Films App',
-  description: 'Films information using TMDB API',
+  title: 'Films Search',
+  description: 'Search for movies, tv shows and personality. View their detailed information.',
 };
 
 export default function RootLayout({

@@ -12,7 +12,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <HeaderSearch />
       </AppShellHeader>
       <AppShellMain>
-        <Container>{children}</Container>
+        <Container size={"xl"}>{children}</Container>
       </AppShellMain>
     </AppShell>
   );

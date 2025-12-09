@@ -1,13 +1,48 @@
-import { fetchFromTMDB } from "@/lib/tmdb";
-import { SimpleGrid, Title } from "@mantine/core";
-import { FilmCard } from "../FilmCard";
+"use client";
+import { Button, Center, SimpleGrid, Title } from "@mantine/core";
+import { FilmCard, FilmCardProps } from "../FilmCard";
+import { Suspense, useEffect, useState } from "react";
+import { fetchTrending } from "@/requests/film";
+import FilmSkeleton from "../FilmSkeleton";
 
-export async function TrendingPage() {
-  const trendings = await fetchFromTMDB('/trending/all/day');
+export default function TrendingPage() {
+  const [trendings, setTrendings] = useState<FilmCardProps[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState<number>(1);
+  const fetchData = async (page:number) => {
+    setLoading(true);
+    const data = await fetchTrending(page);
+    setTrendings([...trendings, ...(data?.results || [])])
+    setLoading(false)
+  }
+  useEffect(() => {
+    fetchData(page);
+  }, [])
+  const handleLoadMore = async () => {
+    const nextPage = page + 1;
+    fetchData(nextPage);
+    setPage(nextPage)
+  }
   return (<>
     <Title order={4} my={10}>Trending</Title>
-    <SimpleGrid cols={{base: 1, xs: 2, sm: 3, md: 4}}>
-      {trendings.results.map((item: any) => (<FilmCard key={item.id} {...item} />))}
+    <SimpleGrid cols={{base: 1, xs: 2, sm: 3, md: 4, lg: 5}}>
+      <Suspense fallback={<FilmSkeleton />}>
+        {trendings.map((item: FilmCardProps) => (<FilmCard key={`${item.name || item.title}-${item.id}`} {...item} />))}
+      </Suspense>
     </SimpleGrid>
+    <Center>
+      <Button
+        variant="gradient"
+        size="md"
+        radius={"xs"}
+        w={"50%"}
+        my={10}
+        loading={loading}
+        mx={"auto"}
+        onClick={handleLoadMore}
+      >
+        Load more
+      </Button>
+    </Center>
   </>)
 }

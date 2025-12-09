@@ -11,6 +11,7 @@ const links = [
   { link: '/', label: 'Home' },
   { link: '/movie', label: 'Movies' },
   { link: '/tv', label: 'TV Shows' },
+  { link: '/person', label: 'People' },
 ];
 
 export function HeaderSearch() {
