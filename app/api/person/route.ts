@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const searchParams = url.searchParams;
   const page = searchParams.get("page") || 1;
 
-  const response = await fetchFromTMDB(`/movie/popular?page=${page}`);
+  const response = await fetchFromTMDB(`/person/popular?page=${page}`);
 
   return NextResponse.json(response, { status: 200 });
 }

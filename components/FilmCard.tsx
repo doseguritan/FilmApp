@@ -33,8 +33,7 @@ const media_type_image: MediaImageSource = {
 }
 
 export function FilmCard(props: FilmCardProps) {
-  const theme = useMantineTheme();
-  const {id, overview, vote_average, release_date, title, poster_path, backdrop_path, name} = props;
+  const {id, overview, title, name} = props;
   const media_type: MediaType = props.media_type as MediaType
   const MediaIcon = media_type_icon[media_type]
   return (

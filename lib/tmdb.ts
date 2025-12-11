@@ -13,7 +13,7 @@ export async function fetchFromTMDB(endpoint: string, options: RequestInit = {})
   });
 
   if (!request.ok) {
-    throw new Error(`API request failed: ${request.status} ${request.statusText}`);
+    console.log(`API request failed: ${request.status} ${request.statusText}`);
   }
   const response = await request.json()
   return response;

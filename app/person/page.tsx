@@ -2,7 +2,7 @@
 import { Button, Center, SimpleGrid, Title } from "@mantine/core";
 import { FilmCard, FilmCardProps } from "@/components/FilmCard";
 import { Suspense, useEffect, useState } from "react";
-import { fetchMovies, fetchTrending } from "@/requests/film";
+import { fetchPeople } from "@/requests/film";
 import FilmSkeleton from "@/components/FilmSkeleton";
 
 export default function PopularMovie() {
@@ -12,7 +12,7 @@ export default function PopularMovie() {
   const [hasMorePages, setHasMorePages] = useState(false);
   const fetchData = async (page:number) => {
     setLoading(true);
-    const data = await fetchMovies(page);
+    const data = await fetchPeople(page);
     setTrendings([...trendings, ...(data?.results || [])])
     setHasMorePages(data?.total_pages === page);
     setLoading(false)
@@ -26,10 +26,10 @@ export default function PopularMovie() {
     setPage(nextPage)
   }
   return (<>
-    <Title order={4} my={10}>Popular Movies</Title>
+    <Title order={4} my={10}>Popular Actor/Actress</Title>
     <SimpleGrid cols={{base: 1, xs: 2, sm: 3, md: 4, lg: 5}}>
       <Suspense fallback={<FilmSkeleton />}>
-        {trendings.map((item: FilmCardProps) => (<FilmCard key={`${item.name || item.title}-${item.id}`} {...item} media_type="movie" />))}
+        {trendings.map((item: FilmCardProps) => (<FilmCard key={`${item.name || item.title}-${item.id}`} {...item} media_type="person" />))}
       </Suspense>
     </SimpleGrid>
     {!hasMorePages && <Center>

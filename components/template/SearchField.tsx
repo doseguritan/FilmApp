@@ -2,7 +2,7 @@
 
 import { CloseButton, Input, InputProps } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 export default function SearchField({ handleSearch, ...props }: Props) {
   const [searchValue, setSearchValue] = useState('');
@@ -20,10 +20,10 @@ export default function SearchField({ handleSearch, ...props }: Props) {
     value={searchValue}
     onChange={(event) => setSearchValue(event.currentTarget.value)}
     {...props}
-    onKeyDown={e => handleSearch(e, searchValue)}
+    onKeyDown={e => handleSearch(e, searchValue, setSearchValue)}
   />
 }
 
 type Props = InputProps & {
-  handleSearch: (e: React.KeyboardEvent<HTMLInputElement>, value: String) => void;
+  handleSearch: (e: React.KeyboardEvent<HTMLInputElement>, value: string, resetValue: Dispatch<SetStateAction<string>>) => void;
 }

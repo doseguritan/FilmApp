@@ -3,15 +3,13 @@ import { tmdb_image } from "@/lib/image";
 import { Carousel, CarouselSlide } from "@mantine/carousel";
 import { Image, Paper, Title, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import Logo from "@/assets/logo.png";
-import NextImage from "next/image";
 import Link from "next/link";
 
-export function FilmCast({cast} : {cast: any[]}) {
+export default function FilmCast({recommedations, title} : {recommedations: any[], title?: string}) {
   const theme = useMantineTheme();
   const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
   return <>
-    <Title order={4}>Casts</Title>
+    <Title order={4}>{title || "Recommendations"}</Title>
     <Carousel
       slideGap={{base: 0, sm: "md"}}
       slideSize={{base: "70%", sm: "25%"}}
@@ -24,22 +22,19 @@ export function FilmCast({cast} : {cast: any[]}) {
       }}
       withIndicators
     >
-      {cast.map((castMember: any) => (
-        <CarouselSlide key={castMember.id}>
+      {recommedations.map((recommedation: any) => (
+        <CarouselSlide key={recommedation.id}>
           <Paper
             shadow="md"
             p="xl"
             radius="md"
             component={Link}
-            href={`/person/${castMember.id}`}
+            href={`/${recommedation.media_type}/${recommedation.id}`}
           >
             <div>
-              <Image src={tmdb_image(castMember, "profile")} width={"auto"} height={300} radius={"md"} fallbackSrc={"/cast.jpg"} />
-              <Title order={6}>
-                {castMember.name}
-              </Title>
-              <Title order={5} lh={"1rem"}>
-                {castMember.character}
+              <Image src={tmdb_image(recommedation, "poster")} width={"auto"} height={300} radius={"md"} fallbackSrc={"/cast.jpg"} />
+              <Title order={5} ta={"center"}>
+                {recommedation.name || recommedation.title}
               </Title>
             </div>
           </Paper>

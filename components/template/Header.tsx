@@ -6,6 +6,8 @@ import Logo from '@/assets/logo.png';
 import Image from 'next/image';
 import Link from 'next/link';
 import SearchField from './SearchField';
+import { redirect } from 'next/navigation';
+import { Dispatch, SetStateAction } from 'react';
 
 const links = [
   { link: '/', label: 'Home' },
@@ -30,9 +32,12 @@ export function HeaderSearch() {
     </Button>
   ));
 
-  const handleSearchFilm = (e: React.KeyboardEvent<HTMLInputElement>, value: String) => {
+  const handleSearchFilm = (e: React.KeyboardEvent<HTMLInputElement>, value: string, reset: Dispatch<SetStateAction<string>>):void => {
     if(e.key === "Enter"){
       // TODO: Handle search film action
+      if(!value || value.length === 0) return;
+      reset("");
+      redirect(`/search/${value}`);
     }
   }
 
